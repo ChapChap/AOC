@@ -1,6 +1,5 @@
 def first():
     f = open('input', 'r')
-    f.seek(0)
     res = 0
     for line in f:
         res+=int(line)

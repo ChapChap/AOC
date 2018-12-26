@@ -1,8 +1,8 @@
 #!/usr/local/bin/python3
 def index_double_letter(start, polymer):
-    for i in range(start, len(polymer) - 1):
-        if polymer[i] != polymer[i + 1] and polymer[i].lower() == polymer[
-                i + 1].lower():
+    for i in range(start + 1, len(polymer)):
+        if polymer[i - 1] != polymer[i] and polymer[
+                i - 1].lower() == polymer[i].lower():
             return i
     return -1
 
@@ -12,14 +12,17 @@ def rec(polymer):
     if index == -1:
         return polymer
     else:
-        return rec(polymer[:index] + polymer[index + 2:])
+        return rec(polymer[:index - 1] + polymer[index + 1:])
 
 
 def react(polymer):
     index = index_double_letter(0, polymer)
     while index != -1:
-        polymer = polymer[:index] + polymer[index + 2:]
-        index = index_double_letter(index - 1, polymer)
+        polymer = polymer[:index - 1] + polymer[index + 1:]
+        newstart = index - 2
+        if newstart < 0:
+            newstart = 0
+        index = index_double_letter(newstart, polymer)
     return polymer
 
 
@@ -54,7 +57,7 @@ def testone():
     t = "dabAcCaCBAcCcaDA"
     s = "dabCBAcaDA"
     t1 = index_double_letter(0, t)
-    if t1 != 4:
+    if t1 != 5:
         print("Wrong test 1 ", t1)
     t2 = index_double_letter(0, s)
     if t2 != -1:
@@ -92,6 +95,6 @@ def testtwo():
 
 
 #testone()
-one()
+#one()
 #testtwo()
-#two()
+two()

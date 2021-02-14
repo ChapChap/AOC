@@ -39,20 +39,31 @@ func getPasswordAndPolicy(str string) (string, Policy) {
 	}
 }
 
-func isValidPassword(password string, policy Policy) bool {
+func isValidPasswordOne(password string, policy Policy) bool {
 	occurence := strings.Count(password, policy.letter)
 	if occurence >= policy.min && occurence <= policy.max {
 		return true
-	} else {
-		return false
 	}
+	return false
+}
+
+func isValidPasswordTwo(password string, policy Policy) bool {
+	if policy.max <= len(password) {
+		if string(password[policy.min-1]) == string(password[policy.max-1]) {
+			return false
+		}
+		if string(password[policy.min-1]) == policy.letter || string(password[policy.max-1]) == policy.letter {
+			return true
+		}
+	}
+	return false
 }
 
 func countValidPasswords(list []string) int {
 	var count int
 	for i := 0; i < len(list); i++ {
 		line := list[i]
-		if isValidPassword(getPasswordAndPolicy(line)) {
+		if isValidPasswordTwo(getPasswordAndPolicy(line)) {
 			count++
 		}
 	}

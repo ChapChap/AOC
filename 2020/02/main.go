@@ -1,5 +1,8 @@
 package main
 
+// Res1 : 550
+// Res2 : 634
+
 import (
 	"AOC/utils/conv"
 	"AOC/utils/files"
